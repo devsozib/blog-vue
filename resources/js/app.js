@@ -4,10 +4,8 @@ window.Vue = require('vue').default;
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
-const routes = [
 
-  ];
-
+import {routes} from './routes/routes';
 const router = new VueRouter({
     routes,
     mode:"history",
