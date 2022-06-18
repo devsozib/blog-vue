@@ -18,20 +18,34 @@ const Toast = Swal.mixin({
     }
   })
  window.Toast = Toast;
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
+import {storeData} from './store/store';
+
+const store = new Vuex.Store({
+    storeData
+});
+
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
 import {routes} from './routes/routes';
+import Vue from 'vue';
 const router = new VueRouter({
     routes,
     mode:"history",
 });
+
+
+
 
 Vue.component('dashboard', require('./components/backend/dashboard.vue').default);
 
 
 const app = new Vue({
     el: '#content',
-    router
+    router,
+    store
 });
