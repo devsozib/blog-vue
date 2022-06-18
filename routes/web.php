@@ -28,3 +28,4 @@ Route::get('/{anypath}', [App\Http\Controllers\HomeController::class, 'index'])-
 // Route::get('category',[CategoryController::class, 'index']);
 
 
+Route::post('/add-category',[CategoryController::class, 'store'])->name('add-category');
