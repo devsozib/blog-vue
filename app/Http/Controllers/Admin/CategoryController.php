@@ -95,6 +95,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
           $category = Category::find($id);
-          return $category;
+          $category->delete();
     }
 }

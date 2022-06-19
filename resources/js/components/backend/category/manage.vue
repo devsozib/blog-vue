@@ -32,9 +32,12 @@
 
                       <td> <span class="badge bg-success" :class="statusColor(item.status)">{{categoryStatus(item.status)}}</span></td>
                       <td>
-                           <button class="btn btn-info btn-sm" >Edit</button>
+                           <router-link :to="`edit-category/${item.id}`" class="btn btn-info btn-sm" >Edit</router-link>
                            <button class="btn btn-danger btn-sm" @click="removeCat(item.id)">Delete</button>
                       </td>
+                    </tr>
+                    <tr v-if="emptyData()">
+                        <td colspan="4" class="text-danger text-center">Not Found</td>
                     </tr>
                   </tbody>
 
@@ -76,14 +79,31 @@ export default{
                       return color[status];
              },
              removeCat(id){
-                axios.get("remove-category/" + id).then((response)=>{
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                                   axios.get("remove-category/" + id).then((response)=>{
                          Toast.fire({
                             icon: 'success',
-                            title: response.data
+                            title: "Category Deleted Success"
                             });
+                             this.$store.dispatch("getCategories")
+
                 }).catch((error)=>{
                     console.log(error);
                 })
+                })
+
+             },
+
+             emptyData:function(){
+                  return (this.categories.length < 1);
              }
 
    }
