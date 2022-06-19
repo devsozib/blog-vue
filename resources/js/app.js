@@ -21,11 +21,29 @@ const Toast = Swal.mixin({
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
-import {storeData} from './store/store';
+import {storeData} from './store/store.js';
 
-const store = new Vuex.Store({
-    storeData
-});
+const store = new Vuex.Store(
+    {
+        state:{
+            categories:[]
+         },
+         getters:{
+            categories(state){
+              return state.categories;
+            }
+         },
+         actions:{
+            getCategories(){
+                   console.log("Hello actions");
+            }
+         },
+         mutations:{
+
+         }
+
+    }
+);
 
 import VueRouter from 'vue-router';
 

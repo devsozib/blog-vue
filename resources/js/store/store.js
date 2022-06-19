@@ -1,12 +1,15 @@
 export default {
 
          state:{
-            count:0
+             categories:[]
+         },
+         getters:{
+            test(state){
+              return state.count;
+            }
          },
          mutations:{
-            increment (state){
-               state.count++;
-            }
+
          }
 
     }

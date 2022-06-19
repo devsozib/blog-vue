@@ -36,6 +36,7 @@
                       </td>
                     </tr>
                   </tbody>
+                  {{ categories }}
                 </table>
               </div>
               <!-- /.card-body -->
@@ -52,7 +53,15 @@
 
 <script>
 export default{
-   name:"manage"
+   name:"manage",
+   mounted(){
+      this.$store.dispatch("getCategories")
+   },
+   computed:{
+    categories(){
+        return this.$store.getters.test;
+    }
+   }
 }
 
 </script>
