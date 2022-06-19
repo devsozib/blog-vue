@@ -26,17 +26,18 @@
                   <tbody>
 
 
-                    <tr>
-                      <td>4.</td>
-                      <td>Fix and squish bugs</td>
+                    <tr v-for="(item, index) in categories">
+                      <td>{{++index}}</td>
+                      <td>{{item.name}}</td>
 
-                      <td><span class="badge bg-success">90%</span></td>
+                      <td> <span class="badge bg-success" :class="statusColor(item.status)">{{categoryStatus(item.status)}}</span></td>
                       <td>
-
+                           <button class="btn btn-info btn-sm" >Edit</button>
+                           <button class="btn btn-danger btn-sm" @click="removeCat(item.id)">Delete</button>
                       </td>
                     </tr>
                   </tbody>
-                  {{ categories }}
+
                 </table>
               </div>
               <!-- /.card-body -->
@@ -59,8 +60,32 @@ export default{
    },
    computed:{
     categories(){
-        return this.$store.getters.test;
+        return this.$store.getters.categories;
     }
+   },
+
+   methods:{
+             categoryStatus(status){
+                let data = {0: "InActive", 1: "Active"}
+
+                return data[status];
+             },
+
+             statusColor(status){
+                      let color = {0: "bg-danger", 1: "bg-success"}
+                      return color[status];
+             },
+             removeCat(id){
+                axios.get("remove-category/" + id).then((response)=>{
+                         Toast.fire({
+                            icon: 'success',
+                            title: response.data
+                            });
+                }).catch((error)=>{
+                    console.log(error);
+                })
+             }
+
    }
 }
 

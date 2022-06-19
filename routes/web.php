@@ -22,10 +22,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/{anypath}', [App\Http\Controllers\HomeController::class, 'index'])->where('path', '.*');
+// Route::get('/{anypath}', [App\Http\Controllers\HomeController::class, 'index'])->where('path', '.*');
 
 // Route::get('posts',[PostController::class, 'index']);
-// Route::get('category',[CategoryController::class, 'index']);
+Route::get('get-categories',[CategoryController::class, 'index']);
 
 
 Route::post('/add-category',[CategoryController::class, 'store'])->name('add-category');
+Route::get('remove-category/{id}',[CategoryController::class, 'destroy']);

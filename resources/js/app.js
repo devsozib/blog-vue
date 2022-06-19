@@ -26,20 +26,27 @@ import {storeData} from './store/store.js';
 const store = new Vuex.Store(
     {
         state:{
-            categories:[]
+            categoryData:[]
          },
          getters:{
             categories(state){
-              return state.categories;
+              return state.categoryData;
             }
          },
          actions:{
-            getCategories(){
-                   console.log("Hello actions");
+            getCategories(data){
+
+                axios.get("get-categories").then((response)=>{
+                        data.commit("categories", response.data.categories);
+                }).catch((error)=>{
+                    console.log(error);
+                })
             }
          },
          mutations:{
-
+             categories(state, data){
+                   state.categoryData = data;
+             }
          }
 
     }
@@ -53,7 +60,7 @@ import {routes} from './routes/routes';
 import Vue from 'vue';
 const router = new VueRouter({
     routes,
-    mode:"history",
+
 });
 
 
