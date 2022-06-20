@@ -110,6 +110,15 @@
             </router-link>
           </li>
 
+              <li class="nav-item">
+            <router-link to="/Posts" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               Posts
+              </p>
+            </router-link>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

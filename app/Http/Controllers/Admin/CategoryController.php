@@ -50,7 +50,7 @@ class CategoryController extends Controller
 
         ]);
 
-        return "Success";
+
     }
 
     /**
@@ -61,6 +61,7 @@ class CategoryController extends Controller
      */
     public function show($slug)
     {
+
         $category = Category::where('slug', $slug)->first();
         return response()->json(['categories' => $category],200);
 
@@ -86,9 +87,27 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            "name" => 'required',
+            "status" => 'required',
+        ]);
+
+
+        $category = Category::find($request->id);
+
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->status = $request->status;
+
+         if($category->save()){
+            $success = true;
+         }else{
+            $success= false;
+         }
+
+         return response()->json(['success' => $success],200);
     }
 
     /**

@@ -2,10 +2,11 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 import {Form, HasError, AlertError} from 'vform';
 window.Form = Form;
-// Vue.component(HasError.name, HasError);
+
+
+//sweet alert2
 import Swal from 'sweetalert2'
 window.Swal = Swal;
-
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -18,44 +19,59 @@ const Toast = Swal.mixin({
     }
   })
  window.Toast = Toast;
+
+ //Vuex From Here
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import {storeData} from './store/store.js';
-
 const store = new Vuex.Store(
-    {
+       {
         state:{
-            categoryData:[]
+            categoryData:[],
+            postData:[]
          },
          getters:{
             categories(state){
               return state.categoryData;
-            }
+            },
+            posts(state){
+                return state.postData;
+              },
          },
          actions:{
             getCategories(data){
 
-                axios.get("get-categories").then((response)=>{
+                axios.get("/get-categories").then((response)=>{
                         data.commit("categories", response.data.categories);
                 }).catch((error)=>{
                     console.log(error);
                 })
+            },
+            getPosts(data){
+                axios.get("/get-posts").then((response)=>{
+                    data.commit("posts", response.data.posts);
+                }).catch((error)=>{
+                console.log(error);
+               })
             }
          },
          mutations:{
              categories(state, data){
                    state.categoryData = data;
+             },
+
+             posts(state, data){
+                state.postData = data;
              }
          }
 
     }
 );
 
+//Vue Router From Here
 import VueRouter from 'vue-router';
-
 Vue.use(VueRouter);
-
 import {routes} from './routes/routes';
 import Vue from 'vue';
 const router = new VueRouter({
@@ -63,7 +79,11 @@ const router = new VueRouter({
 
 });
 
+//Vue Filter From Here
 
+Vue.filter('subString',(content, length)=>{
+          return content.substring(0, length);
+});
 
 
 Vue.component('dashboard', require('./components/backend/dashboard.vue').default);

@@ -7,9 +7,9 @@
             <div class="col-md-9 offset-md-1">
     <div class="card mt-4 card-info">
               <div class="card-header">
-                <h3 class="card-title">All Categories</h3>
+                <h3 class="card-title">All Posts</h3>
                 <div class="card-tools">
-                    <router-link to="/add-category" class="btn-sm btn-info">Add Category</router-link>
+                    <router-link to="/add-category" class="btn-sm btn-info">Add Posts</router-link>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -17,9 +17,11 @@
                 <table class="table table-sm">
                   <thead>
                     <tr>
-                      <th><input type="checkbox" @click="selectAll" :disabled="emptyData()" v-model="selectedAll"></th>
                       <th style="width: 10px">#</th>
-                      <th>Name</th>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Author</th>
+                      <th>Thumbnail</th>
                       <th>Status</th>
                       <th style="width: 40px">Action</th>
                     </tr>
@@ -27,18 +29,20 @@
                   <tbody>
 
 
-                    <tr v-for="(item, index) in categories">
-                        <td><input type="checkbox" :value="item.id" v-model="selected"></td>
+                    <tr v-for="(item, index) in posts">
                       <td>{{++index}}</td>
-                      <td>{{item.name | subString(10)}} </td>
-
-                      <td> <span class="badge bg-success" :class="statusColor(item.status)">{{categoryStatus(item.status)}}</span></td>
+                      <td>{{item.title}} </td>
+                      <td>{{item.category.name}} </td>
+                      <td>{{item.user.name}} </td>
+                      <td><img width="60px" :src="item.thumbnail" alt=""></td>
+                      <td> <span class="badge bg-success" :class="statusColor(item.status)">{{postStatus(item.status)}}</span></td>
                       <td>
-                           <router-link :to="`edit-category/${item.slug}`" class="btn btn-info btn-sm" >Edit</router-link>
-                           <button class="btn btn-danger btn-sm" @click="removeCat(item.slug)">Delete</button>
+                           <router-link :to="`edit-post/${item.id}`" class="btn btn-info btn-sm" >Edit</router-link>
+                           <button class="btn btn-danger btn-sm" @click="removePost(item.id)">Delete</button>
                       </td>
+
                     </tr>
-                    <tr v-if="emptyData()">
+                     <tr v-if="emptyData()">
                         <td colspan="4" class="text-danger text-center">Not Found</td>
                     </tr>
                   </tbody>
@@ -60,33 +64,27 @@
 <script>
 export default{
    name:"manage",
-   data:function(){
-      return{
-        selected:[],
-        selectedAll:false
-      }
-   },
    mounted(){
-      this.$store.dispatch("getCategories")
+      this.$store.dispatch("getPosts")
    },
    computed:{
-    categories(){
-        return this.$store.getters.categories;
+    posts(){
+        return this.$store.getters.posts;
     }
    },
 
    methods:{
-             categoryStatus(status){
-                let data = {0: "InActive", 1: "Active"}
+             postStatus(status){
+                let data = {'draft': "Draft", 'published': "Published"}
 
                 return data[status];
              },
 
              statusColor(status){
-                      let color = {0: "bg-danger", 1: "bg-success"}
+                      let color = {'draft': "bg-danger", 'published': "bg-success"}
                       return color[status];
              },
-             removeCat(slug){
+             removePost(id){
                 Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -96,12 +94,12 @@ export default{
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
-                        axios.get("remove-category/" + slug).then((response)=>{
+                        axios.get("remove-post/" + id).then((response)=>{
                          Toast.fire({
                             icon: 'success',
-                            title: "Category Deleted Success"
+                            title: "Post Deleted Success"
                             });
-                             this.$store.dispatch("getCategories")
+                             this.$store.dispatch("getPosts")
 
                 }).catch((error)=>{
                     console.log(error);
@@ -111,17 +109,7 @@ export default{
              },
 
              emptyData:function(){
-                  return (this.categories.length < 1);
-             },
-
-             selectAll:function(event){
-                if(event.target.checked ==false){
-                       this.selected = []
-                }else{
-                    this.categories.forEach((category)=>{
-                        this.selected.push(category.id);
-                    })
-                }
+                  return (this.posts.length < 1);
              }
 
    }

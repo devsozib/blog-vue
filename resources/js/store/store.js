@@ -1,7 +1,8 @@
 export default {
 
          state:{
-             categories:[]
+             categories:[],
+             posts:[]
          },
          getters:{
             test(state){
