@@ -32,8 +32,8 @@
 
                       <td> <span class="badge bg-success" :class="statusColor(item.status)">{{categoryStatus(item.status)}}</span></td>
                       <td>
-                           <router-link :to="`edit-category/${item.id}`" class="btn btn-info btn-sm" >Edit</router-link>
-                           <button class="btn btn-danger btn-sm" @click="removeCat(item.id)">Delete</button>
+                           <router-link :to="`edit-category/${item.slug}`" class="btn btn-info btn-sm" >Edit</router-link>
+                           <button class="btn btn-danger btn-sm" @click="removeCat(item.slug)">Delete</button>
                       </td>
                     </tr>
                     <tr v-if="emptyData()">
@@ -78,7 +78,7 @@ export default{
                       let color = {0: "bg-danger", 1: "bg-success"}
                       return color[status];
              },
-             removeCat(id){
+             removeCat(slug){
                 Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -88,7 +88,7 @@ export default{
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
-                                   axios.get("remove-category/" + id).then((response)=>{
+                        axios.get("remove-category/" + slug).then((response)=>{
                          Toast.fire({
                             icon: 'success',
                             title: "Category Deleted Success"

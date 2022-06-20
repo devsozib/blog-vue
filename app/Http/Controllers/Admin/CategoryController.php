@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -44,7 +45,7 @@ class CategoryController extends Controller
 
         Category::create([
             "name" =>$request->name,
-            "slug" =>$request->name,
+            "slug" =>Str::slug($request->name),
             "status" =>$request->status,
 
         ]);
@@ -58,9 +59,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $category = Category::where('slug', $slug)->first();
+        return response()->json(['categories' => $category],200);
+
+
+
     }
 
     /**
@@ -92,9 +97,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-          $category = Category::find($id);
+          $category = Category::where('slug', $slug)->first();
+
           $category->delete();
     }
 }

@@ -5463,6 +5463,9 @@ __webpack_require__.r(__webpack_exports__);
       })
     };
   },
+  mounted: function mounted() {
+    this.getCategory();
+  },
   methods: {
     addCategory: function addCategory() {
       var forThis = this;
@@ -5474,6 +5477,11 @@ __webpack_require__.r(__webpack_exports__);
         forThis.form.name = null;
         forThis.form.status = null;
       }); //  forThis.$router.push('categories')
+    },
+    getCategory: function getCategory() {
+      axios.get("show-category/" + this.$route.params.slug).then(function (response) {
+        console.log(response.data);
+      })["catch"](function () {});
     }
   }
 });
@@ -5573,7 +5581,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       return color[status];
     },
-    removeCat: function removeCat(id) {
+    removeCat: function removeCat(slug) {
       var _this = this;
 
       Swal.fire({
@@ -5585,7 +5593,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
-        axios.get("remove-category/" + id).then(function (response) {
+        axios.get("remove-category/" + slug).then(function (response) {
           Toast.fire({
             icon: 'success',
             title: "Category Deleted Success"
@@ -44314,11 +44322,6 @@ var render = function () {
                   },
                 },
                 [
-                  _vm._v(
-                    "\n            " +
-                      _vm._s(this.$route.params.id) +
-                      "\n            "
-                  ),
                   _c("div", { staticClass: "card-body" }, [
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
@@ -44584,7 +44587,7 @@ var render = function () {
                               "router-link",
                               {
                                 staticClass: "btn btn-info btn-sm",
-                                attrs: { to: "edit-category/" + item.id },
+                                attrs: { to: "edit-category/" + item.slug },
                               },
                               [_vm._v("Edit")]
                             ),
@@ -44595,7 +44598,7 @@ var render = function () {
                                 staticClass: "btn btn-danger btn-sm",
                                 on: {
                                   click: function ($event) {
-                                    return _vm.removeCat(item.id)
+                                    return _vm.removeCat(item.slug)
                                   },
                                 },
                               },

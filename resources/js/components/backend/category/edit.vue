@@ -18,7 +18,7 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form class="form-horizontal" @submit.prevent="addCategory">
-                {{ this.$route.params.id }}
+
                 <div class="card-body">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
@@ -77,7 +77,9 @@ export default{
        })
     }
    },
-
+  mounted(){
+     this.getCategory();
+   },
    methods: {
     addCategory:function(){
          const forThis = this;
@@ -94,8 +96,19 @@ export default{
         //  forThis.$router.push('categories')
 
 
-    }
-   }
+    },
+     getCategory:function(){
+         axios.get("show-category/"+this.$route.params.slug).then((response)=>{
+             console.log(response.data);
+         }).catch(()=>{
+
+         })
+   },
+
+   },
+
+
+
 }
 
 </script>
