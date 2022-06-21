@@ -38,6 +38,11 @@
                            <button class="btn btn-danger btn-sm" @click="removeCat(item.slug)">Delete</button>
                       </td>
                     </tr>
+                    <tr>
+                        <td v-if="!emptyData()">
+                            <button :disabled="" class="btn btn-info btn-sm">Remove</button>
+                        </td>
+                    </tr>
                     <tr v-if="emptyData()">
                         <td colspan="4" class="text-danger text-center">Not Found</td>
                     </tr>
@@ -63,11 +68,20 @@ export default{
    data:function(){
       return{
         selected:[],
-        selectedAll:false
+        selectedAll:false,
+        isSelected:false
       }
    },
    mounted(){
       this.$store.dispatch("getCategories")
+   },
+   watch:{
+       selected:function(selected){
+          this.selectedAll = (selected.length == this.categories.length);
+       },
+       idSelected:function(selected){
+            this.selectedAll
+       }
    },
    computed:{
     categories(){
