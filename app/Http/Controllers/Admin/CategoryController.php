@@ -122,4 +122,16 @@ class CategoryController extends Controller
 
           $category->delete();
     }
+
+    public function removeItems(Request $request){
+        $serial = 0;
+        foreach($request->data as $ids){
+            $categoryIds = Category::find($ids);
+            $categoryIds->delete();
+            $serial++;
+        }
+
+        $success = $serial > 0 ? true:false;
+        return response()->json(['success' => $success, 'total'=>$serial],200);
+    }
 }

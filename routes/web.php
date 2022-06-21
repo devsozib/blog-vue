@@ -33,6 +33,7 @@ Route::post('/add-category',[CategoryController::class, 'store'])->name('add-cat
 Route::get('remove-category/{slug}',[CategoryController::class, 'destroy']);
 Route::get('/show-category/{slug}',[CategoryController::class, 'show']);
 Route::post('update-category',[CategoryController::class, 'update']);
+Route::post('categories/remove-items',[CategoryController::class, 'removeItems']);
 
 
 //Posts Rotues

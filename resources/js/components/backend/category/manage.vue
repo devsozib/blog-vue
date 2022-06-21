@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <td v-if="!emptyData()">
-                            <button :disabled="" class="btn btn-info btn-sm">Remove</button>
+                            <button @click="removeAll(selected)" :disabled="!isSelected" class="btn btn-info btn-sm">Remove</button>
                         </td>
                     </tr>
                     <tr v-if="emptyData()">
@@ -77,6 +77,7 @@ export default{
    },
    watch:{
        selected:function(selected){
+          this.isSelected = (selected.length > 0);
           this.selectedAll = (selected.length == this.categories.length);
        },
        idSelected:function(selected){
@@ -136,6 +137,23 @@ export default{
                         this.selected.push(category.id);
                     })
                 }
+             },
+
+             removeAll:function(selected){
+                 axios.post("categories/remove-items",{data:selected}).then((response)=>{
+                          Toast.fire({
+                            icon: 'success',
+                            title: response.data.total+ "Category Deleted Success"
+                            });
+                     this.$store.dispatch("getCategories")
+                 }).catch((error)=>{
+                      console.log(error);
+                 })
+
+
+
+
+
              }
 
    }
