@@ -19,7 +19,7 @@ export const routes = [
 
    //For Posts Router
    {path: '/posts', component:posts},
-   {path: '/add-posts', component:addPosts},
+   {path: '/add-post', component:addPosts},
    {path: '/edit-posts/:slug', component:editPosts},
 
 ];

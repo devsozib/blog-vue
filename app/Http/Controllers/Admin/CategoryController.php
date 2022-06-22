@@ -131,7 +131,25 @@ class CategoryController extends Controller
             $serial++;
         }
 
-        $success = $serial > 0 ? true:false;
+        $success = $serial > 0 ;
         return response()->json(['success' => $success, 'total'=>$serial],200);
+    }
+
+    public function changeStatus(Request $request){
+        $serial = 0;
+        foreach($request->data as $ids){
+            $category         = Category::find($ids);
+            $category->status = $request->status;
+            $category->save();
+            $serial++;
+        }
+
+        $success = $serial > 0 ;
+        return response()->json(['success' => $success, 'total'=>$serial],200);
+    }
+
+    public function activeCategories(){
+        $categories = Category::where('status',1)->get();
+        return response()->json(['categories' => $categories],200);
     }
 }

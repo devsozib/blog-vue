@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^34.1.0",
+        "@ckeditor/ckeditor5-vue": "^4.0.1",
         "admin-lte": "3.2",
         "sweetalert2": "^11.4.17",
         "vform": "^2.1.2",

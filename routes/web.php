@@ -34,6 +34,8 @@ Route::get('remove-category/{slug}',[CategoryController::class, 'destroy']);
 Route::get('/show-category/{slug}',[CategoryController::class, 'show']);
 Route::post('update-category',[CategoryController::class, 'update']);
 Route::post('categories/remove-items',[CategoryController::class, 'removeItems']);
+Route::post('categories/change-status',[CategoryController::class, 'changeStatus']);
+Route::get('categories/get-active-categories',[CategoryController::class, 'activeCategories']);
 
 
 //Posts Rotues
@@ -42,3 +44,5 @@ Route::post('/add-post',[PostController::class, 'store'])->name('add-category');
 Route::get('remove-post/{id}',[PostController::class, 'destroy']);
 Route::get('/show-post/{slug}',[PostController::class, 'show']);
 Route::post('update-post',[PostController::class, 'update']);
+Route::post('posts/remove-items',[PostController::class, 'removeItems']);
+Route::post('posts/change-status',[PostController::class, 'changeStatus']);

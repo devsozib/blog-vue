@@ -41,6 +41,8 @@
                     <tr>
                         <td v-if="!emptyData()">
                             <button @click="removeAll(selected)" :disabled="!isSelected" class="btn btn-info btn-sm">Remove</button>
+                            <button @click="changeStatus(selected,1)" :disabled="!isSelected" class="btn btn-info btn-sm">Published</button>
+                            <button @click="changeStatus(selected,0)" :disabled="!isSelected" class="btn btn-info btn-sm">Draft</button>
                         </td>
                     </tr>
                     <tr v-if="emptyData()">
@@ -73,7 +75,8 @@ export default{
       }
    },
    mounted(){
-      this.$store.dispatch("getCategories")
+
+      this.$store.dispatch("getCategories");
    },
    watch:{
        selected:function(selected){
@@ -102,26 +105,20 @@ export default{
                       return color[status];
              },
              removeCat(slug){
-                Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                        axios.get("remove-category/" + slug).then((response)=>{
-                         Toast.fire({
-                            icon: 'success',
-                            title: "Category Deleted Success"
-                            });
-                             this.$store.dispatch("getCategories")
 
-                }).catch((error)=>{
-                    console.log(error);
-                })
-                })
+                 this.confirm(()=>{
+                     axios.get("remove-category/" + slug).then((response)=>{
+                        Toast.fire({
+                           icon: 'success',
+                           title: "Category Deleted Success"
+                           });
+
+                            this.$store.dispatch("getCategories")
+
+                        }).catch((error)=>{
+                            console.log(error);
+                        })
+                 })
 
              },
 
@@ -141,10 +138,16 @@ export default{
 
              removeAll:function(selected){
                  axios.post("categories/remove-items",{data:selected}).then((response)=>{
+                            this.selected=[];
+                            this.selectedAll=false;
+                            this.isSelected=false;
+
+
                           Toast.fire({
                             icon: 'success',
                             title: response.data.total+ "Category Deleted Success"
                             });
+
                      this.$store.dispatch("getCategories")
                  }).catch((error)=>{
                       console.log(error);
@@ -153,6 +156,26 @@ export default{
 
 
 
+
+             },
+             changeStatus:function(selected, status){
+                  axios.post("categories/change-status",{data:selected, status:status}).then((response)=>{
+
+                     let activeMessage = status == "1"?"active":"inactive"
+                            this.selected=[];
+                            this.selectedAll=false;
+                            this.isSelected=false;
+
+
+                          Toast.fire({
+                            icon: 'success',
+                            title: response.data.total+ "Category has been "+ activeMessage
+                            });
+
+                          this.$store.dispatch("getCategories")
+                 }).catch((error)=>{
+                      console.log(error);
+                 })
 
              }
 

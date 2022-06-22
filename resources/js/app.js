@@ -48,6 +48,14 @@ const store = new Vuex.Store(
                     console.log(error);
                 })
             },
+            getActiveCategories(data){
+
+                axios.get("categories/get-active-categories").then((response)=>{
+                        data.commit("categories", response.data.categories);
+                }).catch((error)=>{
+                    console.log(error);
+                })
+            },
             getPosts(data){
                 axios.get("/get-posts").then((response)=>{
                     data.commit("posts", response.data.posts);
@@ -63,7 +71,8 @@ const store = new Vuex.Store(
 
              posts(state, data){
                 state.postData = data;
-             }
+             },
+
          }
 
     }
@@ -85,6 +94,14 @@ Vue.filter('subString',(content, length)=>{
           return content.substring(0, length);
 });
 
+//Mixin
+
+import './helpers/mixin.js';
+
+//CkEditor
+
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use(CKEditor);
 
 Vue.component('dashboard', require('./components/backend/dashboard.vue').default);
 

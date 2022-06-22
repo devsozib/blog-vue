@@ -7,9 +7,9 @@
             <div class="col-md-6 offset-md-3">
     <div class="card mt-4 card-info" >
               <div class="card-header">
-                <h3 class="card-title">Create Category</h3>
+                <h3 class="card-title">Create Post</h3>
                 <div class="card-tools">
-                    <router-link to="/categories" class="btn-sm btn-info">Categories</router-link>
+                    <router-link to="/categories" class="btn-sm btn-info">Posts</router-link>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -19,10 +19,28 @@
               <!-- form start -->
               <form class="form-horizontal" @submit.prevent="addCategory">
                 <div class="card-body">
+                       <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Post</label>
+                    <div class="col-sm-10">
+                       <select v-model="form.category_id" class="form-control">
+                             <option value="">Choose One</option>
+                             <option :value="item.id" v-for="item in categories">{{item.name}}</option>
+                       </select>
+                  <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                    </div>
+                  </div>
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
                       <input name="name"  v-model="form.name" type="text" class="form-control" id="inputEmail3" placeholder="Type your category Name">
+                  <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Content</label>
+                    <div class="col-sm-10">
+                      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
                   <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                     </div>
                   </div>
@@ -46,7 +64,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit"  class="btn btn-info">Add Category</button>
+                  <button type="submit" class="btn btn-info">Add Post</button>
                   <button type="reset"  class="btn btn-info float-right">Reset</button>
                 </div>
                 <!-- /.card-footer -->
@@ -69,11 +87,39 @@
 export default{
    name:"crate",
    data: function(){
+
     return{
+       isPostButton: false,
        form: new Form({
+
         name:null,
-        status:null
-       })
+        status:null,
+        category_id:[]
+       }),
+
+        editor: ClassicEditor,
+                editorData: '<p>Content of the editor.</p>',
+                editorConfig: {
+                    // The configuration of the editor.
+                }
+    }
+   },
+
+    mounted(){
+
+      this.$store.dispatch("getActiveCategories");
+   },
+   watch:{
+          postButton:function(category_id){
+              if(category_id == !null){
+                 this.isPostButton = true;
+              }
+          }
+
+   },
+     computed:{
+    categories(){
+        return this.$store.getters.categories;
     }
    },
 
