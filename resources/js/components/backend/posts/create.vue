@@ -40,10 +40,21 @@
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Content</label>
                     <div class="col-sm-10">
-                      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+                     <ckeditor :editor="editor" v-model="form.content" :config="editorConfig"></ckeditor>
+
                   <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
                     </div>
                   </div>
+
+                  <div class="form-group row">
+                    <label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
+                    <div class="col-sm-10">
+                     <input type="file"  name="" id="thumbnail" @change="loadThumbnail($event)">
+                     <img :src="form.thumbnail" alt="">
+                  <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                    </div>
+                  </div>
+
                   <div class="form-group row">
                      <label for="inputEmail3" class="col-sm-2 col-form-label">Status</label>
                     <div class="col-sm-10">
@@ -83,7 +94,7 @@
 </template>
 
 <script>
-
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default{
    name:"crate",
    data: function(){
@@ -94,14 +105,16 @@ export default{
 
         name:null,
         status:null,
-        category_id:[]
+        category_id:[],
+        content:null,
+        thumbnail:null
        }),
-
         editor: ClassicEditor,
-                editorData: '<p>Content of the editor.</p>',
-                editorConfig: {
-                    // The configuration of the editor.
-                }
+        editorData: '<p>Write content here</p>',
+        editorConfig: {
+            // The configuration of the editor.
+        }
+
     }
    },
 
@@ -135,11 +148,16 @@ export default{
              forThis.form.name = null;
             forThis.form.status = null;
         });
+    },
 
-
-
-
-    }
+    loadThumbnail:function(e){
+        let file = e.target.files[0];
+       const reader = new FileReader();
+        reader.onload =(e)=> {
+             this.form.thumbnail = e.target.result;
+        };
+        reader.readAsDataURL(file);
+            }
    }
 }
 

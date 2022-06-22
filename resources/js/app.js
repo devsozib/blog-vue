@@ -100,9 +100,8 @@ import './helpers/mixin.js';
 
 //CkEditor
 
-import CKEditor from '@ckeditor/ckeditor5-vue';
-Vue.use(CKEditor);
-
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+Vue.use( CKEditor );
 Vue.component('dashboard', require('./components/backend/dashboard.vue').default);
 
 
