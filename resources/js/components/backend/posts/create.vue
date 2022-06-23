@@ -9,7 +9,7 @@
               <div class="card-header">
                 <h3 class="card-title">Create Post</h3>
                 <div class="card-tools">
-                    <router-link to="/categories" class="btn-sm btn-info">Posts</router-link>
+                    <router-link to="/posts" class="btn-sm btn-info">Posts</router-link>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -17,7 +17,7 @@
 
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal" @submit.prevent="addCategory">
+              <form class="form-horizontal" @submit.prevent="addPost">
                 <div class="card-body">
                        <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Post</label>
@@ -30,10 +30,10 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-10">
-                      <input name="name"  v-model="form.name" type="text" class="form-control" id="inputEmail3" placeholder="Type your category Name">
-                  <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                      <input name="title"  v-model="form.title" type="text" class="form-control" id="inputEmail3" placeholder="Type your category Name">
+                  <div class="text-danger" v-if="form.errors.has('title')" v-html="form.errors.get('title')" />
                     </div>
                   </div>
 
@@ -42,7 +42,7 @@
                     <div class="col-sm-10">
                      <ckeditor :editor="editor" v-model="form.content" :config="editorConfig"></ckeditor>
 
-                  <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                  <div class="text-danger" v-if="form.errors.has('content')" v-html="form.errors.get('content')" />
                     </div>
                   </div>
 
@@ -50,8 +50,8 @@
                     <label for="thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
                     <div class="col-sm-10">
                      <input type="file"  name="" id="thumbnail" @change="loadThumbnail($event)">
-                     <img :src="form.thumbnail" alt="">
-                  <div class="text-danger" v-if="form.errors.has('name')" v-html="form.errors.get('name')" />
+                     <img width="100px" :src="form.thumbnail" alt="">
+                  <div class="text-danger" v-if="form.errors.has('thumbnail')" v-html="form.errors.get('thumbnail')" />
                     </div>
                   </div>
 
@@ -103,7 +103,7 @@ export default{
        isPostButton: false,
        form: new Form({
 
-        name:null,
+        title:null,
         status:null,
         category_id:[],
         content:null,
@@ -137,16 +137,20 @@ export default{
    },
 
    methods: {
-    addCategory:function(){
+    addPost:function(){
          const forThis = this;
-        this.form.post('/add-category')
+        this.form.post('/add-post')
         .then(function(data){
+
+
              Toast.fire({
             icon: 'success',
-            title: 'Category added successfully'
+            title: 'Post added successfully'
             });
-             forThis.form.name = null;
+             forThis.form.title = null;
             forThis.form.status = null;
+            forThis.form.content = null;
+            forThis.form.category_id = null;
         });
     },
 

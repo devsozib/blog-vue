@@ -5871,7 +5871,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isPostButton: false,
       form: new Form({
-        name: null,
+        title: null,
         status: null,
         category_id: [],
         content: null,
@@ -5899,15 +5899,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    addCategory: function addCategory() {
+    addPost: function addPost() {
       var forThis = this;
-      this.form.post('/add-category').then(function (data) {
+      this.form.post('/add-post').then(function (data) {
         Toast.fire({
           icon: 'success',
-          title: 'Category added successfully'
+          title: 'Post added successfully'
         });
-        forThis.form.name = null;
+        forThis.form.title = null;
         forThis.form.status = null;
+        forThis.form.content = null;
+        forThis.form.category_id = null;
       });
     },
     loadThumbnail: function loadThumbnail(e) {
@@ -45960,10 +45962,7 @@ var render = function () {
                 [
                   _c(
                     "router-link",
-                    {
-                      staticClass: "btn-sm btn-info",
-                      attrs: { to: "/categories" },
-                    },
+                    { staticClass: "btn-sm btn-info", attrs: { to: "/posts" } },
                     [_vm._v("Posts")]
                   ),
                 ],
@@ -45979,7 +45978,7 @@ var render = function () {
                   on: {
                     submit: function ($event) {
                       $event.preventDefault()
-                      return _vm.addCategory.apply(null, arguments)
+                      return _vm.addPost.apply(null, arguments)
                     },
                   },
                 },
@@ -46062,7 +46061,7 @@ var render = function () {
                           staticClass: "col-sm-2 col-form-label",
                           attrs: { for: "inputEmail3" },
                         },
-                        [_vm._v("Name")]
+                        [_vm._v("Title")]
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-10" }, [
@@ -46071,33 +46070,33 @@ var render = function () {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.name,
-                              expression: "form.name",
+                              value: _vm.form.title,
+                              expression: "form.title",
                             },
                           ],
                           staticClass: "form-control",
                           attrs: {
-                            name: "name",
+                            name: "title",
                             type: "text",
                             id: "inputEmail3",
                             placeholder: "Type your category Name",
                           },
-                          domProps: { value: _vm.form.name },
+                          domProps: { value: _vm.form.title },
                           on: {
                             input: function ($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "name", $event.target.value)
+                              _vm.$set(_vm.form, "title", $event.target.value)
                             },
                           },
                         }),
                         _vm._v(" "),
-                        _vm.form.errors.has("name")
+                        _vm.form.errors.has("title")
                           ? _c("div", {
                               staticClass: "text-danger",
                               domProps: {
-                                innerHTML: _vm._s(_vm.form.errors.get("name")),
+                                innerHTML: _vm._s(_vm.form.errors.get("title")),
                               },
                             })
                           : _vm._e(),
@@ -46132,12 +46131,12 @@ var render = function () {
                             },
                           }),
                           _vm._v(" "),
-                          _vm.form.errors.has("name")
+                          _vm.form.errors.has("content")
                             ? _c("div", {
                                 staticClass: "text-danger",
                                 domProps: {
                                   innerHTML: _vm._s(
-                                    _vm.form.errors.get("name")
+                                    _vm.form.errors.get("content")
                                   ),
                                 },
                               })
@@ -46168,14 +46167,20 @@ var render = function () {
                         }),
                         _vm._v(" "),
                         _c("img", {
-                          attrs: { src: _vm.form.thumbnail, alt: "" },
+                          attrs: {
+                            width: "100px",
+                            src: _vm.form.thumbnail,
+                            alt: "",
+                          },
                         }),
                         _vm._v(" "),
-                        _vm.form.errors.has("name")
+                        _vm.form.errors.has("thumbnail")
                           ? _c("div", {
                               staticClass: "text-danger",
                               domProps: {
-                                innerHTML: _vm._s(_vm.form.errors.get("name")),
+                                innerHTML: _vm._s(
+                                  _vm.form.errors.get("thumbnail")
+                                ),
                               },
                             })
                           : _vm._e(),

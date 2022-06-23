@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -39,7 +41,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $request->validate([
+            "title" => 'required',
+            "status" => 'required',
+
+        ]);
+
+        Post::create([
+            "category_id"=>$request->category_id,
+            "user_id"=>Auth()->user()->id,
+            "title" =>$request->title,
+            "content" =>$request->content,
+            "thumbnail" =>"thumbnail",
+            "status" =>$request->status,
+
+        ]);
     }
 
     /**

@@ -40,7 +40,7 @@ Route::get('categories/get-active-categories',[CategoryController::class, 'activ
 
 //Posts Rotues
 Route::get('get-posts',[PostController::class, 'index']);
-Route::post('/add-post',[PostController::class, 'store'])->name('add-category');
+Route::post('/add-post',[PostController::class, 'store'])->name('add-post');
 Route::get('remove-post/{id}',[PostController::class, 'destroy']);
 Route::get('/show-post/{slug}',[PostController::class, 'show']);
 Route::post('update-post',[PostController::class, 'update']);
