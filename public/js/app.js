@@ -6237,6 +6237,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+    fileLink: function fileLink(name) {
+      return 'uploads/posts/' + name;
     }
   }
 });
@@ -45975,6 +45978,7 @@ var render = function () {
                 "form",
                 {
                   staticClass: "form-horizontal",
+                  attrs: { enctype: "multipart/form-data" },
                   on: {
                     submit: function ($event) {
                       $event.preventDefault()
@@ -46738,7 +46742,7 @@ var render = function () {
                           _c("img", {
                             attrs: {
                               width: "60px",
-                              src: item.thumbnail,
+                              src: _vm.fileLink(item.thumbnail),
                               alt: "",
                             },
                           }),

@@ -17,7 +17,7 @@
 
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal" @submit.prevent="addPost">
+              <form class="form-horizontal" enctype="multipart/form-data" @submit.prevent="addPost">
                 <div class="card-body">
                        <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Post</label>

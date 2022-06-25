@@ -36,7 +36,7 @@
                       <td>{{item.title}} </td>
                       <td>{{item.category.name}} </td>
                       <td>{{item.user.name}} </td>
-                      <td><img width="60px" :src="item.thumbnail" alt=""></td>
+                      <td><img width="60px" :src="fileLink(item.thumbnail)" alt=""></td>
                       <td> <span class="badge bg-success" :class="statusColor(item.status)">{{postStatus(item.status)}}</span></td>
                       <td>
                            <router-link :to="`edit-post/${item.id}`" class="btn btn-info btn-sm" >Edit</router-link>
@@ -178,6 +178,9 @@ export default{
                       console.log(error);
                  })
 
+             },
+              fileLink:(name)=>{
+                 return 'uploads/posts/'+name;
              }
 
    }

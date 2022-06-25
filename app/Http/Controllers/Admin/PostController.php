@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class PostController extends Controller
 {
@@ -17,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category', 'user')->get();
+        $posts = Post::with('category', 'user')->orderBy('id','DESC')->get();
 
         return response()->json(['posts' => $posts],200);
 
@@ -41,6 +42,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $success = false;
+
 
 
         $request->validate([
@@ -49,15 +52,28 @@ class PostController extends Controller
 
         ]);
 
-        Post::create([
+        $imageExtension = explode(';', $request->thumbnail);
+        $imageExtension = explode('/', $imageExtension[0]);
+        $file_extension = end($imageExtension);
+
+        $slug = Str::slug($request->title);
+        $fileName =$slug.'.'.$file_extension;
+
+        $success = Post::create([
             "category_id"=>$request->category_id,
             "user_id"=>Auth()->user()->id,
             "title" =>$request->title,
             "content" =>$request->content,
-            "thumbnail" =>"thumbnail",
+            "thumbnail" =>$fileName,
             "status" =>$request->status,
 
         ]);
+
+        if($success){
+            $img = Image::make($request->thumbnail)->resize(500, 250)->save(public_path('uploads/posts/') . $fileName);
+           }
+
+        return response()->json(['success'=>$success],200);
     }
 
     /**
@@ -103,8 +119,12 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::where('id', $id)->first();
-
-        $post->delete();
+        $fileName = $post->thumbnail;
+        if($post->delete()){
+           if(file_exists(public_path('uploads/posts/'.$fileName))){
+              unlink(public_path('uploads/posts/'.$fileName));
+           }
+        }
     }
 
     public function removeItems(Request $request){
