@@ -39,7 +39,7 @@
                       <td><img width="60px" :src="fileLink(item.thumbnail)" alt=""></td>
                       <td> <span class="badge bg-success" :class="statusColor(item.status)">{{postStatus(item.status)}}</span></td>
                       <td>
-                           <router-link :to="`edit-post/${item.id}`" class="btn btn-info btn-sm" >Edit</router-link>
+                           <router-link :to="`edit-posts/${item.id}`" class="btn btn-info btn-sm" >Edit</router-link>
                            <button class="btn btn-danger btn-sm" @click="removePost(item.id)">Delete</button>
                       </td>
 

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
+
 
 class PostController extends Controller
 {
@@ -70,6 +72,7 @@ class PostController extends Controller
         ]);
 
         if($success){
+
             $img = Image::make($request->thumbnail)->resize(500, 250)->save(public_path('uploads/posts/') . $fileName);
            }
 
@@ -84,7 +87,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::where('id', $id)->first();
+        return response()->json(['post' => $post],200);
     }
 
     /**
