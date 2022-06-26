@@ -17,8 +17,8 @@
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
-        "sass": "^1.32.11",
-        "sass-loader": "^11.0.1",
+        "sass": "^1.20.1",
+        "sass-loader": "^13.0.1",
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
@@ -27,6 +27,7 @@
         "@ckeditor/ckeditor5-build-classic": "^34.1.0",
         "@ckeditor/ckeditor5-vue2": "^3.0.1",
         "admin-lte": "3.2",
+        "autoprefixer": "10.4.5",
         "sweetalert2": "^11.4.17",
         "vform": "^2.1.2",
         "vue-router": "^3.5.4",

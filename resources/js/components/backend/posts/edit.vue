@@ -162,9 +162,9 @@ export default{
         };
         reader.readAsDataURL(file);
             },
-    fileLink:(name)=>{
+    fileLink:function(name){
 
-         if(name.length < 256 ){
+         if(name!==null && name.length < 256 ){
           return 'uploads/posts/'+name;
          }else{
            return this.form.thumbnail;
