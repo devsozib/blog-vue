@@ -17,7 +17,7 @@
 
               <!-- /.card-header -->
               <!-- form start -->
-               <form class="form-horizontal" enctype="multipart/form-data" @submit.prevent="addPost">
+               <form class="form-horizontal" enctype="multipart/form-data" @submit.prevent="updatePost">
                 <div class="card-body">
                        <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
@@ -36,7 +36,7 @@
                   <div class="text-danger" v-if="form.errors.has('title')" v-html="form.errors.get('title')" />
                     </div>
                   </div>
-
+                   <input type="hidden" name="" v-model="form.id">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Content</label>
                     <div class="col-sm-10">
@@ -101,7 +101,7 @@ export default{
    data: function(){
     return{
      form: new Form({
-
+        id:null,
         title:null,
         status:null,
         thumbnail:null,
@@ -127,14 +127,14 @@ export default{
     }
    },
    methods: {
-    updateCategory:function(){
+    updatePost:function(){
          const forThis = this;
-        this.form.post('update-category')
+        this.form.post('/update-post')
         .then(function(data){
 
              Toast.fire({
             icon: 'success',
-            title: 'Category updated successfully'
+            title: 'Post updated successfully'
             });
               forThis.$router.push('/posts')
         });

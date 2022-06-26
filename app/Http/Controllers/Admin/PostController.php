@@ -109,9 +109,35 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+
+        $request->validate([
+            "title" => 'required',
+            "status" => 'required',
+
+        ]);
+
+
+        $post = Post::find($request->id);
+
+            $post->category_id = $request->category_id;
+            $post->title =$request->title;
+            $post->content =$request->content;
+            $post->status =$request->status;
+            if($request->thumbnail != $post->thumbnail){
+                $imageExtension = explode(';', $request->thumbnail);
+                $imageExtension = explode('/', $imageExtension[0]);
+                $file_extension = end($imageExtension);
+
+                $slug = Str::slug($request->title);
+                $fileName =$slug.'.'.$file_extension;
+                $post->thumbnail = $fileName;
+                Image::make($request->thumbnail)->resize(500, 250)->save(public_path('uploads/posts/') . $fileName);
+            }
+           $success =  $post->save();
+            return response()->json(['success'=>$success],200);
     }
 
     /**

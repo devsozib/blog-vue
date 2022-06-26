@@ -6046,6 +6046,7 @@ var _this = undefined;
   data: function data() {
     return {
       form: new Form({
+        id: null,
         title: null,
         status: null,
         thumbnail: null,
@@ -6066,12 +6067,12 @@ var _this = undefined;
     }
   },
   methods: {
-    updateCategory: function updateCategory() {
+    updatePost: function updatePost() {
       var forThis = this;
-      this.form.post('update-category').then(function (data) {
+      this.form.post('/update-post').then(function (data) {
         Toast.fire({
           icon: 'success',
-          title: 'Category updated successfully'
+          title: 'Post updated successfully'
         });
         forThis.$router.push('/posts');
       });
@@ -11637,7 +11638,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11685,7 +11686,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11733,7 +11734,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46440,7 +46441,7 @@ var render = function () {
                   on: {
                     submit: function ($event) {
                       $event.preventDefault()
-                      return _vm.addPost.apply(null, arguments)
+                      return _vm.updatePost.apply(null, arguments)
                     },
                   },
                 },
@@ -46564,6 +46565,27 @@ var render = function () {
                           : _vm._e(),
                       ]),
                     ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.id,
+                          expression: "form.id",
+                        },
+                      ],
+                      attrs: { type: "hidden", name: "" },
+                      domProps: { value: _vm.form.id },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "id", $event.target.value)
+                        },
+                      },
+                    }),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
