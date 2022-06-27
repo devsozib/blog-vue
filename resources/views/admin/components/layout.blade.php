@@ -141,7 +141,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <router-view></router-view>
+    <public-master></public-master>
   </div>
   <!-- /.content-wrapper -->
 
