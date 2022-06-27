@@ -36,6 +36,7 @@ Route::post('update-category',[CategoryController::class, 'update']);
 Route::post('categories/remove-items',[CategoryController::class, 'removeItems']);
 Route::post('categories/change-status',[CategoryController::class, 'changeStatus']);
 Route::get('categories/get-active-categories',[CategoryController::class, 'activeCategories']);
+Route::get('get-active-top-categories',[CategoryController::class, 'gerActiveTopCategories']);
 
 
 //Posts Rotues

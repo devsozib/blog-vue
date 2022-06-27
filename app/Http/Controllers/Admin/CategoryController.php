@@ -152,4 +152,9 @@ class CategoryController extends Controller
         $categories = Category::where('status',1)->get();
         return response()->json(['categories' => $categories],200);
     }
+
+    public function gerActiveTopCategories(){
+        $categories = Category::where('status',1)->get();
+        return response()->json(['categories' => $categories],200);
+    }
 }

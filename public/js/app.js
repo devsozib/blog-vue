@@ -6342,6 +6342,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home"
 });
@@ -11690,7 +11701,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11738,7 +11749,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11762,7 +11773,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -11786,7 +11797,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\r\n    text-decoration: none;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na.btn-sm.btn-info {\n    text-decoration: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -47343,9 +47354,56 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("I am from frontend home component")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "blog-post   wow fadeInUp" }, [
+        _c("a", { attrs: { href: "blog-details.html" } }, [
+          _c("img", {
+            staticClass: "img-responsive",
+            attrs: { src: "assets/images/blog-post/blog_big_03.jpg", alt: "" },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("h1", [
+          _c("a", { attrs: { href: "blog-details.html" } }, [
+            _vm._v("Nemo enim ipsam voluptatem quia voluptas sit aspernatur"),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "author" }, [_vm._v("Mark Doe")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "review" }, [_vm._v("6 Comments")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "date-time" }, [
+          _vm._v("14/06/2014 11.00AM"),
+        ]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..."
+          ),
+        ]),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn btn-upper btn-primary read-more",
+            attrs: { href: "#" },
+          },
+          [_vm._v("read more")]
+        ),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 

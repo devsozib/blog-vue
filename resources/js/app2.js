@@ -1,3 +1,4 @@
+require('./bootstrap');
 window.Vue = require('vue').default;
 
  //Vuex From Here
@@ -17,6 +18,9 @@ const store = new Vuex.Store(
             posts(state){
                 return state.postData;
               },
+              gerActiveTopCategories(state){
+                return state.categoryData;
+              }
          },
          actions:{
             getCategories(data){
@@ -30,7 +34,8 @@ const store = new Vuex.Store(
             getActiveCategories(data){
 
                 axios.get("categories/get-active-categories").then((response)=>{
-                        data.commit("categories", response.data.categories);
+                         data.commit("categories", response.data.categories);
+
                 }).catch((error)=>{
                     console.log(error);
                 })
@@ -41,6 +46,14 @@ const store = new Vuex.Store(
                 }).catch((error)=>{
                 console.log(error);
                })
+            },
+            gerActiveTopCategories(data){
+                axios.get("/get-active-top-categories").then((response)=>{
+                    data.commit("categories", response.data.categories);
+
+                }).catch((error)=>{
+                    console.log(error);
+                })
             }
          },
          mutations:{
@@ -50,7 +63,7 @@ const store = new Vuex.Store(
 
              posts(state, data){
                 state.postData = data;
-             },
+             }
 
          }
 
@@ -78,6 +91,8 @@ Vue.filter('subString',(content, length)=>{
 import './helpers/mixin.js';
 
 import PublicMaster from  "./components/frontend/FrontendMaster.vue";
+import MainHeader from  "./components/frontend/Header.vue";
+import axios from 'axios';
 // Vue.component('public-master', require('./components/frontend/FrontendMaster.vue').default);
 
 const app = new Vue({
@@ -86,5 +101,6 @@ const app = new Vue({
     store,
     components:{
         'public-master':PublicMaster,
+        'main-header':MainHeader
     }
 });
