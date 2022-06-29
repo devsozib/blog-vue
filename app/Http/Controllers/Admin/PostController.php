@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -20,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category', 'user')->orderBy('id','DESC')->get();
+        $posts = Post::with('category', 'user')->orderBy('id','DESC')->where('status',"published")->get();
 
         return response()->json(['posts' => $posts],200);
 
@@ -180,6 +181,23 @@ class PostController extends Controller
 
         $success = $serial > 0 ;
         return response()->json(['success' => $success, 'total'=>$serial],200);
+    }
+
+    public function details($id){
+        $post = Post::with('category', 'user')->where('id', $id)->first();
+        return response()->json(['post' => $post],200);
+    }
+
+    public function getPostByCategory($slug){
+           $category_id = Category::where('slug', $slug)->first();
+
+           $posts = Post::with('category', 'user')
+           ->orderBy('id', 'DESC')
+           ->where('category_id', $category_id->id)
+           ->where('status', 'published')
+           ->get();
+
+           return response()->json(['posts' => $posts],200);
     }
 
 }

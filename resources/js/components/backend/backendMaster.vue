@@ -1,10 +1,10 @@
 <template>
-     <h5>Cat{{this.$route.params.slug}}</h5>
+     <router-view></router-view>
 </template>
 
 <script>
 export default{
-    name:"Category"
+    name:"backendMaster"
 }
 </script>
 

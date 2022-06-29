@@ -9,7 +9,8 @@ const store = new Vuex.Store(
        {
         state:{
             categoryData:[],
-            postData:[]
+            postData:[],
+
          },
          getters:{
             categories(state){
@@ -20,7 +21,8 @@ const store = new Vuex.Store(
               },
               gerActiveTopCategories(state){
                 return state.categoryData;
-              }
+              },
+
          },
          actions:{
             getCategories(data){
@@ -54,7 +56,9 @@ const store = new Vuex.Store(
                 }).catch((error)=>{
                     console.log(error);
                 })
-            }
+            },
+
+
          },
          mutations:{
              categories(state, data){
@@ -63,7 +67,8 @@ const store = new Vuex.Store(
 
              posts(state, data){
                 state.postData = data;
-             }
+             },
+
 
          }
 
@@ -100,7 +105,7 @@ const app = new Vue({
     router,
     store,
     components:{
-        'public-master':PublicMaster,
+        'master':PublicMaster,
         'main-header':MainHeader
     }
 });

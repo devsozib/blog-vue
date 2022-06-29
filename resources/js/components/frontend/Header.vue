@@ -24,7 +24,7 @@
 <div class="logo">
 	<router-link to="/">
 
-		<img src="assets/images/logo.png" alt="">
+		 <strong class="text-white" style="color:#fff!important; font-size:20px;">Blogger</strong>
 
 	</router-link>
 </div><!-- /.logo -->
@@ -78,7 +78,7 @@
 				<router-link to="/" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</router-link>
 			</li>
             <li class=" dropdown yamm-fw" v-for="item in categories">
-				<router-link :to="`/category/${item.slug}`" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{item.name}}</router-link>
+				<router-link :to="`by-category/${item.slug}`" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{item.name}}</router-link>
 			</li>
 		</ul><!-- /.navbar-nav -->
 		<div class="clearfix"></div>

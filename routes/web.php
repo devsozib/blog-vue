@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 
 /*
@@ -40,10 +41,12 @@ Route::get('get-active-top-categories',[CategoryController::class, 'gerActiveTop
 
 
 //Posts Rotues
-Route::get('get-posts',[PostController::class, 'index']);
+Route::get('get-posts',[HomeController::class, 'index']);
 Route::post('/add-post',[PostController::class, 'store'])->name('add-post');
 Route::get('remove-post/{id}',[PostController::class, 'destroy']);
 Route::get('/show-post/{id}',[PostController::class, 'show']);
 Route::post('update-post',[PostController::class, 'update']);
 Route::post('posts/remove-items',[PostController::class, 'removeItems']);
 Route::post('posts/change-status',[PostController::class, 'changeStatus']);
+Route::get('by-category-post/{slug}',[PostController::class, 'getPostByCategory']);
+Route::get('/post-details/{id}',[PostController::class, 'details']);

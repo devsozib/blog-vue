@@ -44,7 +44,7 @@
 
 			<div class="blog-page">
 
-                <public-master></public-master>
+                <master></master>
 
 
 

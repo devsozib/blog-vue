@@ -10,10 +10,10 @@
                     <div class="sidebar-widget-body m-t-10">
                         <div class="accordion">
                             <div class="accordion-group">
-                                <div class="accordion-heading">
-                                    <a href="#collapseOne" data-toggle="collapse" class="accordion-toggle collapsed">
-                                        Camera
-                                    </a>
+                                <div class="accordion-heading" v-for="item in categories">
+                                    <router-link :to="`by-category/${item.slug}`" data-toggle="collapse" class="accordion-toggle collapsed">
+                                       {{ item.name }}
+                                    </router-link>
                                 </div><!-- /.accordion-heading -->
                             </div><!-- /.accordion-group -->
                         </div><!-- /.accordion -->
@@ -25,7 +25,21 @@
 
 <script>
 export default{
-    name:"Sidebar"
+    name:"Sidebar",
+     data:function(){
+      return{}
+   },
+   mounted(){
+
+      this.$store.dispatch("getCategories");
+   },
+   watch:{ },
+   computed:{
+    categories(){
+        return this.$store.getters.categories;
+    }
+   },
+
 }
 </script>
 

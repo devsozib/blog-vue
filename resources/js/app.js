@@ -103,10 +103,13 @@ import './helpers/mixin.js';
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 Vue.use( CKEditor );
 Vue.component('dashboard', require('./components/backend/dashboard.vue').default);
-
+import PublicMaster from  "./components/frontend/FrontendMaster.vue";
 
 const app = new Vue({
     el: '#content',
     router,
-    store
+    store,
+    components:{
+        'public-master':PublicMaster,
+    }
 });

@@ -12,7 +12,8 @@ import editPosts from '../components/backend/posts/edit.vue';
 //FrontEnd
 import Home from '../components/frontend/Home.vue';
 import About from '../components/frontend/About.vue';
-import PostByCategory from '../components/frontend/Category.vue';
+import PostByCategory from '../components/frontend/byCategory.vue';
+import PostDetails from '../components/frontend/PostDetails.vue';
 
 export const routes = [
    {path: '/home', component:dashboard},
@@ -32,6 +33,7 @@ export const routes = [
 
    {path:'/', component:Home},
    {path:'/about' , component:About},
-   {path: '/category/:slug', component:PostByCategory},
+   {path: '/by-category/:slug', component:PostByCategory},
+   {path: '/details/:id', component:PostDetails},
 ];
 
