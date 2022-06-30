@@ -6772,6 +6772,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].mixin({
       }).then(function (result) {
         if (result.value) callback();
       });
+    },
+    subStringWithLength: function subStringWithLength(text, length, s) {
+      return text.substring(0, length) + s;
     }
   }
 });
@@ -44194,9 +44197,17 @@ var render = function () {
               _vm._v(_vm._s(item.created_at)),
             ]),
             _vm._v(" "),
-            _c("p", { domProps: { innerHTML: _vm._s(item.content) } }, [
-              _vm._v(_vm._s(item.content) + "..."),
-            ]),
+            _c(
+              "p",
+              {
+                domProps: {
+                  innerHTML: _vm._s(
+                    _vm.subStringWithLength(item.content, 200, "...")
+                  ),
+                },
+              },
+              [_vm._v("...")]
+            ),
             _vm._v(" "),
             _c(
               "router-link",
@@ -44375,7 +44386,17 @@ var render = function () {
             _vm._v(_vm._s(post.created_at)),
           ]),
           _vm._v(" "),
-          _c("p", { domProps: { innerHTML: _vm._s(post.content) } }),
+          _c(
+            "p",
+            {
+              domProps: {
+                innerHTML: _vm._s(
+                  _vm.subStringWithLength(post.content, 200, "...")
+                ),
+              },
+            },
+            [_vm._v("...")]
+          ),
         ])
       }),
       0

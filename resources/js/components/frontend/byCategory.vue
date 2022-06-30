@@ -7,7 +7,7 @@
 	<h1>{{post.title}}</h1>
 	<span class="author">{{post.user.name}}</span>
 	<span class="date-time">{{post.created_at}}</span>
-	<p v-html="post.content"></p>
+	<p v-html="subStringWithLength(post.content,200,'...')">...</p>
 
    </div>
 </div>

@@ -14,6 +14,12 @@ Vue.mixin({
             }).then((result) => {
                  if(result.value) callback();
             })
-       }
+       },
+
+       subStringWithLength:function(text, length, s){
+        return text.substring(0, length) + s;
+ }
+
+
    },
 })

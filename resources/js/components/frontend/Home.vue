@@ -7,7 +7,7 @@
 	<h1><router-link :to="`details/${item.id}`">{{item.title}}</router-link></h1>
 	<span class="author">{{item.user.name}}</span>
 	<span class="date-time">{{item.created_at}}</span>
-	<p v-html="item.content">{{item.content }}...</p>
+	<p v-html="subStringWithLength(item.content,200,'...')">...</p>
 	<router-link :to="`details/${item.id}`" class="btn btn-upper btn-primary read-more">read more</router-link>
    </div>
 </div>
@@ -44,8 +44,11 @@ export default{
    methods:{
      fileLink:(name)=>{
                  return 'uploads/posts/'+name;
-             }
-   }
+             },
+
+
+   },
+
 
 
 
